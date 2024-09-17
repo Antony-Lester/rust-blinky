@@ -1,0 +1,41 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "preLaunchTask": "${defaultBuildTask}",
+            "type": "probe-rs-debug",
+            "request": "launch",
+            "name": "probe-rs-debugger",
+            // "server": "127.0.0.1:50001", // For connecting to an existing probe-rs-debugger process
+            "chip": "STM32F407VET6",
+            "cwd": "${workspaceFolder}",
+            "coreConfigs": [
+                {
+                    "coreIndex": 0,
+                    "svdFile": "stm32f407.svd.patched",
+                    "rttEnabled": true,
+                    "rttChannelFormats": [
+                        {
+                            "dataFormat": "String",
+                            "channelNumber": 0,
+                            "showTimestamps": true
+                        }
+                    ]
+                }
+            ],
+            "runtimeExecutable": "probe-rs",
+            "runtimeArgs": ["dap-server"],
+            "flashingConfig": {
+                "flashingEnabled": true,
+                "haltAfterReset": false,
+                "formatOptions": {
+                    "format": "elf" // Valid values are: 'bin', 'hex', 'elf'(default), 'idf'
+                }
+            },
+            "connectUnderReset": false,
+            "consoleLogLevel": "Console", // Options: Info, Debug
+            // "speed": 24000, // Uncomment and modify if needed
+            // "probe": "VID:PID:<Serial>", // Uncomment and modify if needed
+        }
+    ]
+}
