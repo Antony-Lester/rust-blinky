@@ -23,6 +23,7 @@
                     ]
                 }
             ],
+            "programBinary": "${workspaceFolder}/target/thumbv7em-none-eabihf/debug/blinky",
             "runtimeExecutable": "probe-rs",
             "runtimeArgs": ["dap-server"],
             "flashingConfig": {
@@ -36,6 +37,36 @@
             "consoleLogLevel": "Console", // Options: Info, Debug
             // "speed": 24000, // Uncomment and modify if needed
             // "probe": "VID:PID:<Serial>", // Uncomment and modify if needed
+        },
+        {
+            "name": "Cortex Debug (OpenOCD)",
+            "type": "cortex-debug",
+            "request": "launch",
+            "servertype": "openocd",
+            "cwd": "${workspaceFolder}",
+            "executable": "./target/thumbv7em-none-eabihf/debug/blinky",
+            "programBinary": "${workspaceFolder}/target/thumbv7em-none-eabihf/debug/blinky",
+            "device": "STM32F407VET6",
+            "configFiles": [
+                "interface/stlink.cfg",
+                "target/stm32f4x.cfg"
+            ],
+            "svdFile": "${workspaceFolder}/stm32f407.svd",
+            "runToMain": true,
+            "preLaunchTask": "cargo build",
+            "postRestartCommands": [
+                "monitor reset halt",
+                "monitor reset init"
+            ],
+            "openOCDLaunchCommands": [
+                "init",
+                "reset init"
+            ],
+            "openOCDPreLaunchCommands": [
+                "gdb_port 50000",
+                "tcl_port 50001",
+                "telnet_port 50002"
+            ]
         }
     ]
 }

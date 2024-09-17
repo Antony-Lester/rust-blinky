@@ -73,3 +73,7 @@ to intervene to uphold that code of conduct.
 ## blinky code
 
 Added from <https://github.com/stm32-rs/stm32f4xx-hal/blob/master/examples/delay-syst-blinky.rs>
+
+## logging over stlink
+
+use openocd
