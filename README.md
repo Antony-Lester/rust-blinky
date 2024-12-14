@@ -4,8 +4,63 @@
 
 ## Dependencies
 
+## Git Setup
 To build embedded programs using this template you'll need:
 
+- Create a .gitignore & README.md file
+
+``` console
+    touch .gitignore README.md
+```
+
+``` console
+echo "# Project Title
+
+A brief description of your project." > README.md
+```
+
+- Initialize the Git repository
+
+``` console
+git init
+```
+
+- Add the files to the staging area
+
+``` console
+git add .gitignore README.md
+```
+
+- Commit the files
+
+``` console
+git commit -m "Initial commit with .gitignore and README.md"
+```
+
+- Set up remote repo
+
+  if you dont have Github CLI-
+  ``` console
+      sudo apt update
+      sudo apt install gh
+  ```
+  then auth in..
+  ``` console
+  gh auth login
+  ```
+
+  ``` console
+  gh repo create <repository-name> --private
+  ```
+
+- Link to remote repo and push inital commit
+
+``` console
+  git remote add origin https://github.com/<your-username>/<repository-name>.git
+  git branch -M main
+  git push -u origin main
+```
+## Install tooling
 - The `cargo generate` subcommand. [Installation
   instructions](https://github.com/cargo-generate/cargo-generate#installation).
 ``` console
@@ -20,6 +75,12 @@ $ cargo install probe-rs --features cli
 - `rust-std` components (pre-compiled `core` crate) for the ARM Cortex-M
   targets. Run:
   
+This command adds support for the following ARM Cortex-M targets:
+- `thumbv6m-none-eabi`: ARM Cortex-M0 and M0+
+- `thumbv7m-none-eabi`: ARM Cortex-M3
+- `thumbv7em-none-eabi`: ARM Cortex-M4 and M7 (without hardware floating-point)
+- `thumbv7em-none-eabihf`: ARM Cortex-M4 and M7 (with hardware floating-point)
+
 ``` console
 $ rustup target add thumbv6m-none-eabi thumbv7m-none-eabi thumbv7em-none-eabi thumbv7em-none-eabihf
 ```
@@ -35,10 +96,27 @@ curl --proto '=https' --tlsv1.2 -LsSf https://github.com/probe-rs/probe-rs/relea
 1. Run and enter project name
 ``` console
 $ cargo generate --git https://github.com/burrbull/stm32-template/
- Project Name: app
+ Project Name: <app>
 ```
 
 2. Specify **chip product name** and answer on several other guide questions.
+
+### if there is no template
+
+  a. 
+  ``` console 
+  cargo install cargo-generate
+  ```
+
+  b.
+  ``` console
+  cargo generate --git https://github.com/rust-embedded/cortex-m-quickstart
+  ```
+
+  c. update Cargo.toml
+
+  d. update memory.x
+
 
 3. Your program is ready to compile:
 ``` console
